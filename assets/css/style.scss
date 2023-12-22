@@ -212,6 +212,79 @@ article {
 	}
 }
 
+.b {
+	display: flex;
+	flex-direction: column;
+
+	.large-articles {
+		order: 2;
+		padding-bottom: 2em;
+
+		article {
+			align-items: center;
+			.content {
+				// flex-basis: 100%;
+			}
+			.article-img {
+				min-width: 200px;
+				max-width: 200px;
+				img {
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+	}
+
+	aside {
+		order: 1;
+		display: flex;
+		flex-wrap: wrap;
+		padding-top: 2rem;
+		padding-bottom: 1em;
+
+		.topics {
+			h3 {
+				text-transform: uppercase;
+				font-weight: 700;
+				width: 100%;
+			}
+
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			padding-bottom: 2rem;
+			border-bottom: 1px solid $gray1;
+
+			.topic {
+				padding: 0.5rem 1rem;
+				border: 1px solid $gray1;
+				border-radius: 2px;
+				color: $gray2;
+				font-size: 14px;
+			}
+		}
+
+		.footer {
+			display: flex;
+			gap: 1rem 2rem;
+			padding-top: 2rem;
+			flex-wrap: wrap;
+
+			ul {
+				li {
+					list-style: none;
+
+					a {
+						color: $gray2;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+}
+
 //large mobile
 @media screen and (min-width: 552px) {
 	.header-wrapper {
@@ -289,6 +362,47 @@ article {
 			top: 0;
 		}
 	}
+
+	.b {
+		flex-direction: row;
+		gap: 0 32px;
+
+		.large-articles {
+			order: 1;
+			padding-bottom: 2em;
+			flex-basis: 100%;
+			.mw {
+				margin-right: 0;
+			}
+		}
+
+		aside {
+			order: 2;
+			flex-basis: 33.3333%;
+			display: flex;
+			padding-top: 2rem;
+			padding-bottom: 1em;
+			.mw {
+				margin-left: 0;
+			}
+
+			.topics {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding-bottom: 2rem;
+				border-bottom: 1px solid $gray1;
+
+				.topic {
+					padding: 0.5rem 1rem;
+					border: 1px solid $gray1;
+					border-radius: 2px;
+					color: $gray2;
+					font-size: 14px;
+				}
+			}
+		}
+	}
 }
 
 //large desktop
@@ -299,8 +413,16 @@ article {
 
 	.trending-articles {
 		article {
-			width: 33.333333%;
 			padding: 0 16px;
+		}
+	}
+
+	.b {
+		flex-direction: row;
+		.large-articles {
+		}
+
+		aside {
 		}
 	}
 }
