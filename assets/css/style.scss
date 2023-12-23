@@ -14,21 +14,28 @@ $gray2: #6b6b6b;
 //styles for screens lower than 552px
 body {
 	font-family: 'Roboto', sans-serif;
+	color: $black;
 }
 
 button,
 a {
 	cursor: pointer;
+	text-decoration: none;
+	color: $black;
 }
 
 img {
 	max-width: 100%;
 }
 
+@mixin mw-margin($margin: 1.5rem) {
+	margin: 0 $margin;
+}
+
 //max-width + margin
 .mw {
+	@include mw-margin();
 	max-width: 1192px;
-	margin: 0 1.5rem;
 }
 
 .line-clamp {
@@ -44,6 +51,14 @@ img {
 	padding: 0.5rem 1rem;
 	color: $white;
 	border-radius: 99em;
+	cursor: pointer;
+	a {
+		color: $white;
+	}
+}
+
+svg g {
+	transition: opacity 150ms linear;
 }
 
 header {
@@ -52,12 +67,28 @@ header {
 	top: 0;
 	background-color: $yellow;
 	z-index: 900;
+	transition: background-color 300ms linear;
+	display: flex;
+	justify-content: center;
+
+	&.sticky {
+		background-color: $white;
+		nav ul li.btn {
+			background-color: $green1;
+			transition: background-color 300ms linear;
+
+			&:hover {
+				background-color: $green2;
+			}
+		}
+	}
 }
 .header-wrapper {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	height: 75px;
+	width: 100%;
 
 	nav {
 		ul {
@@ -69,6 +100,7 @@ header {
 				font-size: 0.875rem;
 				line-height: 1.25rem;
 				margin-right: 25px;
+
 				&.hide-mobile,
 				&.show-lg-mobile {
 					display: none;
@@ -87,10 +119,13 @@ header {
 	position: relative;
 	overflow: hidden;
 	border-bottom: 1px solid $black;
+	display: flex;
+	justify-content: center;
 
 	.mw {
 		display: flex;
 		align-items: center;
+		width: 100%;
 
 		.hero-text {
 			padding-top: 93px;
@@ -123,9 +158,13 @@ header {
 
 .a {
 	border-bottom: 1px solid $gray1;
+	display: flex;
+	justify-content: center;
+
 	.mw {
 		padding-top: 2.5rem;
 		padding-bottom: 1rem;
+		width: 100%;
 
 		& > h2 {
 			display: flex;
@@ -214,7 +253,14 @@ article {
 
 .b {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
+
+	& > .mw {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
 
 	.large-articles {
 		order: 2;
@@ -222,10 +268,37 @@ article {
 
 		article {
 			align-items: center;
-			justify-content: space-between;
+
 			gap: 1rem;
 			.content {
-				// flex-basis: 100%;
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+
+				p {
+					@extend .line-clamp;
+					margin-bottom: 8px;
+				}
+				.category {
+					@extend .btn;
+					background-color: $gray1;
+					color: $gray2;
+					padding: 0.1rem 0.6rem;
+				}
+
+				& > div:last-of-type {
+					min-width: 25px;
+					align-self: flex-end;
+
+					img {
+						opacity: 0.6;
+						cursor: pointer;
+
+						&:hover {
+							opacity: 1;
+						}
+					}
+				}
 			}
 			.article-img {
 				min-width: 200px;
@@ -264,6 +337,7 @@ article {
 				border-radius: 2px;
 				color: $gray2;
 				font-size: 14px;
+				cursor: pointer;
 			}
 		}
 
@@ -318,7 +392,7 @@ article {
 //tablet
 @media screen and (min-width: 728px) {
 	.mw {
-		margin: 0 3rem;
+		@include mw-margin(3rem);
 	}
 
 	.header-wrapper {
@@ -366,26 +440,37 @@ article {
 	}
 
 	.b {
-		flex-direction: row;
-		gap: 0 32px;
+		& > .mw {
+			@include mw-margin(3rem);
+			flex-direction: row;
+			justify-content: center;
+			gap: 0 32px;
+		}
 
 		.large-articles {
 			order: 1;
 			padding-bottom: 2em;
 			flex-basis: 100%;
+			padding-top: 32px;
 			.mw {
-				margin-right: 0;
+				margin: 0;
 			}
 		}
 
 		aside {
 			order: 2;
 			flex-basis: 33.3333%;
+			// height: 100%;
 			display: flex;
 			padding-top: 2rem;
 			padding-bottom: 1em;
+
 			.mw {
-				margin-left: 0;
+				margin: 0;
+				.sticky-wrapper {
+					top: 108px;
+					position: sticky;
+				}
 			}
 
 			.topics {
@@ -419,12 +504,10 @@ article {
 		}
 	}
 
-	.b {
-		flex-direction: row;
-		.large-articles {
-		}
-
-		aside {
+	.hero {
+		.hero-image {
+			left: auto;
+			right: 0;
 		}
 	}
 }
